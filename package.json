@@ -8,6 +8,6 @@
 },
 "config":{
 "isDevInstance":false,
-"portno":5000	
+"portno":8080	
 }
 }
