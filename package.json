@@ -1,0 +1,13 @@
+{
+"name" : "Quest",
+"version" : "0.0.1",
+"description" : "A Hold Management tool",
+"dependencies" :{
+"mime": "~1.2.7",
+"express": "3.1.0"
+},
+"config":{
+"isDevInstance":false,
+"portno":5000	
+}
+}
