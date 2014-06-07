@@ -170,6 +170,47 @@ res.send('ok');
          res.send(404);
 });
 
+//Add New Item
+ app.post('/api/Discipline', function (req, res) {
+     if (checkToken(req)) {
+         var temp = {};
+         temp.Id = DisciplineList.length + 1;
+         temp.Code = req.body.Code;
+         temp.Name = req.body.Name;
+         DisciplineList.push(temp);
+         res.send('100');
+     } else
+         res.send(404);
+});
+
+//Update Item
+ app.put('/api/Discipline/:Id', function (req, res) {
+     if (checkToken(req)) {
+         var temp = {};
+         temp.Id = req.params.Id;
+         temp.Code = req.body.Code;
+         temp.Name = req.body.Name;
+         //ReferentialStatus[temp.Id] = temp;
+         for (item in DisciplineList) {
+             if (req.params.Id == DisciplineList[item].Id)
+                 DisciplineList[item] = temp;
+         }
+         res.send('100');
+     } else
+         res.send(404);
+});
+//Delete Item
+ app.delete('/api/Discipline/:Id', function (req, res) {
+     if (checkToken(req)) {
+         //delete ReferentialStatus[req.params.id];
+         for (item in DisciplineList) {
+             if (req.params.Id == DisciplineList[item].Id)
+                 DisciplineList.splice(item, 1);
+         }
+         res.send('100');
+     } else
+         res.send(404);
+});
 
  app.post('/api/users/validateUser', function (req, res) {
      if (checkToken(req)) {
