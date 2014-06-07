@@ -36,6 +36,17 @@ var ReferentialStatus = [
 { "Id": 8, "Code": "Abc7", "Name": "Test7" }
 ];
 
+var HoldStatus = [
+{ "Id": 1, "Code": "HLD1", "Name": "Jack Harper" },
+{ "Id": 2, "Code": "HLD 2", "Name": "Peter Parker" },
+{ "Id": 3, "Code": "HLD 3", "Name": "Vanilla Blue" },
+{ "Id": 4, "Code": "HLD 4", "Name": "David Beckhams Hold" },
+{ "Id": 5, "Code": "HLD 5", "Name": "Ryan Renolds Hold" },
+{ "Id": 6, "Code": "HLD 6", "Name": "Winie Hold" },
+{ "Id": 7, "Code": "HLD 7", "Name": "Jacob Winnston Hold" },
+{ "Id": 8, "Code": "HLD 8", "Name": "Taxi Boat Hold" }
+];
+
 var RoleList = [
 { "Id": 1, "Code": "Abc", "Name": "Administrator" },
 { "Id": 2, "Code": "DH", "Name": "Discipline" },
@@ -148,6 +159,59 @@ res.send('ok');
          for (item in ReferentialStatus) {
              if (req.params.Id == ReferentialStatus[item].Id)
                  ReferentialStatus.splice(item, 1);
+         }
+         res.send('100');
+     } else
+         res.send(404);
+});
+/*Referential STATUS -API : END*/
+
+/*HOLDS API*********************************************************************************/
+/*Referential STATUS -API : START*****************************************************************/
+//GET ALL DATA
+ app.get('/api/Hold', function (req, res) {
+     if (checkToken(req)) {
+         res.send(HoldStatus);
+     }
+     else
+         res.send(404);
+});
+
+//Add New Item
+ app.post('/api/Hold', function (req, res) {
+     if (checkToken(req)) {
+         var temp = {};
+         temp.Id = HoldStatus.length + 1;
+         temp.Code = req.body.Code;
+         temp.Name = req.body.Name;
+         HoldStatus.push(temp);
+         res.send('100');
+     } else
+         res.send(404);
+});
+//Update Item
+ app.put('/api/Hold/:Id', function (req, res) {
+     if (checkToken(req)) {
+         var temp = {};
+         temp.Id = req.params.Id;
+         temp.Code = req.body.Code;
+         temp.Name = req.body.Name;
+         //ReferentialStatus[temp.Id] = temp;
+         for (item in HoldStatus) {
+             if (req.params.Id == HoldStatus[item].Id)
+                 HoldStatus[item] = temp;
+         }
+         res.send('100');
+     } else
+         res.send(404);
+});
+//Delete Item
+ app.delete('/api/Hold/:Id', function (req, res) {
+     if (checkToken(req)) {
+         //delete ReferentialStatus[req.params.id];
+         for (item in HoldStatus) {
+             if (req.params.Id == HoldStatus[item].Id)
+                 HoldStatus.splice(item, 1);
          }
          res.send('100');
      } else
